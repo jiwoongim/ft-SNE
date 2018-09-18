@@ -44,8 +44,7 @@ where N is number of data points, D is number of features (see line 44-45 in run
 
 
 
-##Illustration 
-
+## Illustration 
 ft-SNE embeddings obtained with interpolated divergences 
 between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
 

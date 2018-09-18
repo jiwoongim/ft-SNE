@@ -40,6 +40,7 @@ if __name__ == '__main__':
     dataset_path = dataset_path 
     data  = np.load(dataset_path+'/data.npy')
     label = np.load(dataset_path+'/label.npy')
+    datatype='mydata'
 
     pca = PCA(n_components=30)
     pcastr = 'pca30'
@@ -72,7 +73,7 @@ if __name__ == '__main__':
         lrDecay=100
 
     print 'Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne)
-    fname = args.datatype+'/'+divtypet+'/tsne_'+str(perplexity_tsne)+'perp'+str(n_epochs_tsne)+'epoch_initlr'+str(initial_lr_tsne)+pcastr
+    fname = '/'+datatype+'/'+divtypet+'/tsne_'+str(perplexity_tsne)+'perp'+str(n_epochs_tsne)+'epoch_initlr'+str(initial_lr_tsne)+pcastr
     projX = tsne(data, 
                  initial_lr=initial_lr_tsne, \
                  final_lr=initial_lr_tsne,\
@@ -81,7 +82,7 @@ if __name__ == '__main__':
                  momentum_switch=momentum_switch,\
                  perplexity=perplexity_tsne, \
                  n_epochs=n_epochs_tsne, fname=fname, \
-                 color=color, divtype=divtypet, datatype=args.datatype)
+                 color=color, divtype=divtypet, datatype=datatype)
 
     print(fname)
     pass

@@ -10,9 +10,9 @@ for different types of structure in data.
 Illustration - ft-SNE embeddings obtained with interpolated divergences 
 between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
 
-![Image of cluster embedding](https://github.com/jiwoongim/GRAN/blob/master/blob_cropped.pdf)
+![Image of cluster embedding](https://github.com/jiwoongim/ft-SNE/blob/master/blob_cropped.pdf)
 
-![Image of manifold embedding](https://github.com/jiwoongim/GRAN/blob/master/swiss_cropped.pdf)
+![Image of manifold embedding](https://github.com/jiwoongim/ft-SNE/blob/master/swiss_cropped.pdf)
 
 
 For more information, see 

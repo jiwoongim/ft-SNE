@@ -39,11 +39,13 @@ Entry code for runninng your own data:
     python ./run.py --divtypet kl --perplexity 100 --dataset_path [YOUR OWN DATADIR]
 ```
 Note that the name of data and labels file must be in NumPy array 
-(npy) file. Data file name (data.npy) and Label file name (label.npy),
-see line 44-45 in run.py for details.
+(npy) file. Data and label file name should be data.npy (NxD matrix) and label.npy (Nx1 array),
+where N is number of data points, D is number of features (see line 44-45 in run.py for details).
+
 
 
 ##Illustration 
+
 ft-SNE embeddings obtained with interpolated divergences 
 between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
 

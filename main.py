@@ -128,6 +128,7 @@ if __name__ == '__main__':
         light = (mat_contents['lights'].T - mat_contents['lights'].T.min()) / mat_contents['lights'].T.max()
         poses = (mat_contents['poses'].T - mat_contents['poses'].T.min()) / (mat_contents['poses'].T.max() - mat_contents['poses'].T.min())
         color = poses[:,0] 
+    
         n_epochs_tsne=1000; 
         pcastr = 'pose1'
         if divtypet=='hl':

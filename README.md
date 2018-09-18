@@ -7,14 +7,6 @@ ft-Stochastic Neighbour Embedding (ft-SNE) is f-divergence based loss criteria f
 The main idea is that different f-divergence produce better low-dimensional visualizations 
 for different types of structure in data.
 
-Illustration - ft-SNE embeddings obtained with interpolated divergences 
-between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
-
-![Image of cluster embedding](https://github.com/jiwoongim/ft-SNE/blob/master/blob_cropped.jpg)
-
-![Image of manifold embedding](https://github.com/jiwoongim/ft-SNE/blob/master/swiss_cropped.jpg)
-
-
 For more information, see 
 ```bibtex
 @article{Im2018,
@@ -44,6 +36,13 @@ Entry code for MNIST, MNIST1, FACE, NEWS
 ```
 
 
+#Illustration 
+ft-SNE embeddings obtained with interpolated divergences 
+between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
+
+![Image of cluster embedding](https://github.com/jiwoongim/ft-SNE/blob/master/blob_cropped.jpg)
+
+![Image of manifold embedding](https://github.com/jiwoongim/ft-SNE/blob/master/swiss_cropped.jpg)
 
 
 

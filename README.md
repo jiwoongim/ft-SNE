@@ -34,6 +34,13 @@ Entry code for MNIST, MNIST1, FACE, NEWS
     python ./main.py --datatype face   --divtypet kl --perplexity 100
     python ./main.py --datatype news   --divtypet kl --perplexity 100
 ```
+Entry code for runninng your own data:
+```
+    python ./run.py --divtypet kl --perplexity 100 --dataset_path [YOUR OWN DATADIR]
+```
+Note that the name of data and labels file must be in NumPy array 
+(npy) file. Data file name (data.npy) and Label file name (label.npy),
+see line 44-45 in run.py for details.
 
 
 #Illustration 

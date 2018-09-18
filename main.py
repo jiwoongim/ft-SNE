@@ -182,7 +182,7 @@ if __name__ == '__main__':
             lrDecay=5
         elif divtypet=='ch':
             initial_momentum=0.5
-            initial_lr_tsne=2000 
+            initial_lr_tsne=100 
             momentum_switch=200
             lrDecay=100
         elif divtypet=='rkl':

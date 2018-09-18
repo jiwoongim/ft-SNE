@@ -21,7 +21,7 @@ def parse_args():
                         choices=['mnist','mnist1','face','news'],
                         help='The name of dataset')
     parser.add_argument('--dataset_path', type=str, \
-                        default='/groups/branson/home/imd/Documents/machine_learning_uofg/data/',\
+                        default='./data/',\
                         help='Dataset directory')
     parser.add_argument('--divtypet', type=str, default='kl', \
                         choices=['kl','rkl','js','hl', 'ch'],
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     perplexity_tsne = args.perplexity_tsne
 
     if args.datatype == 'mnist':
-        dataset_path = dataset_path + '/MNIST/mnist.pkl.gz'
+        dataset_path = dataset_path + '/mnist.pkl.gz'
         f = gzip.open(dataset_path, 'rb')
         train_set_np, valid_set_np, test_set_np = cPickle.load(f)
 
@@ -139,7 +139,7 @@ if __name__ == '__main__':
     elif args.datatype == 'face':
       
         import scipy.io as sio
-        mat_contents = sio.loadmat(dataset_path+'/embedding_data/face_data.mat')
+        mat_contents = sio.loadmat(dataset_path+'/face_data.mat')
         data = mat_contents['images'].T
         light = (mat_contents['lights'].T - mat_contents['lights'].T.min()) / mat_contents['lights'].T.max()
         poses = (mat_contents['poses'].T - mat_contents['poses'].T.min()) / (mat_contents['poses'].T.max() - mat_contents['poses'].T.min())

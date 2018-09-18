@@ -30,8 +30,8 @@ Packages
 Entry code for MNIST, MNIST1, FACE, NEWS
 ```
     python ./main.py --datatype mnist  --divtypet kl --perplexity 100
-    python ./main.py --datatype mnist1 --divtypet kl --perplexity 100
-    python ./main.py --datatype face   --divtypet kl --perplexity 100
+    python ./main.py --datatype mnist1 --divtypet rkl --perplexity 100
+    python ./main.py --datatype face   --divtypet rkl --perplexity 100
     python ./main.py --datatype news   --divtypet kl --perplexity 100
 ```
 Entry code for runninng your own data:

@@ -7,6 +7,14 @@ ft-Stochastic Neighbour Embedding (ft-SNE) is f-divergence based loss criteria f
 The main idea is that different f-divergence produce better low-dimensional visualizations 
 for different types of structure in data.
 
+Illustration - ft-SNE embeddings obtained with interpolated divergences 
+between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
+
+![Image of cluster embedding](https://github.com/jiwoongim/GRAN/blob/master/blob_cropped.jpeg)
+
+![Image of manifold embedding](https://github.com/jiwoongim/GRAN/blob/master/swiss_cropped.jpeg)
+
+
 For more information, see 
 ```bibtex
 @article{Im2018,
@@ -27,9 +35,15 @@ Packages
 
 
 ## How to run
-Entry code for MNIST 
+Entry code for MNIST, MNIST1, FACE, NEWS
 ```
-    - ./main.py --datatype mnist  --divtypet kl --perplexity 100
+    python ./main.py --datatype mnist  --divtypet kl --perplexity 100
+    python ./main.py --datatype mnist1 --divtypet kl --perplexity 100
+    python ./main.py --datatype face   --divtypet kl --perplexity 100
+    python ./main.py --datatype news   --divtypet kl --perplexity 100
 ```
+
+
+
 
 

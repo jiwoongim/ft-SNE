@@ -1,4 +1,4 @@
-import os, sys, gzip, pickle, cPickle
+import os, sys, gzip, pickle, cPickle, argparse
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.cm as cm
@@ -29,24 +29,8 @@ def parse_args():
     parser.add_argument('--perplexity_tsne', type=int, default=100, \
                         help='Perplexity')
 
-    return check_args(parser.parse_args())
+    return parser.parse_args()
 
-
-"""checking arguments"""
-def check_args(args):
-    # --save_dir
-    if not os.path.exists(args.save_dir):
-        os.makedirs(args.save_dir)
-
-    # --result_dir
-    if not os.path.exists(args.result_dir):
-        os.makedirs(args.result_dir)
-
-    # --result_dir
-    if not os.path.exists(args.log_dir):
-        os.makedirs(args.log_dir)
-
-    return args
 
 
 if __name__ == '__main__':
@@ -221,14 +205,14 @@ if __name__ == '__main__':
     print 'Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne)
     fname = args.datatype+'/'+divtypet+'/tsne_'+str(perplexity_tsne)+'perp'+str(n_epochs_tsne)+'epoch_initlr'+str(initial_lr_tsne)+pcastr
     projX = tsne(data, 
-                    initial_lr=initial_lr_tsne, \
-                    final_lr=initial_lr_tsne,\
-                    lrDecay=lrDecay,\
-                    initial_momentum=initial_momentum,\
-                    momentum_switch=momentum_switch,\
-                    perplexity=perplexity_tsne, \
-                    n_epochs=n_epochs_tsne, fname=fname, \
-                    color=color, divtype=divtypet, args.datatype=args.datatype)
+                 initial_lr=initial_lr_tsne, \
+                 final_lr=initial_lr_tsne,\
+                 lrDecay=lrDecay,\
+                 initial_momentum=initial_momentum,\
+                 momentum_switch=momentum_switch,\
+                 perplexity=perplexity_tsne, \
+                 n_epochs=n_epochs_tsne, fname=fname, \
+                 color=color, divtype=divtypet, datatype=args.datatype)
 
     print(fname)
     pass

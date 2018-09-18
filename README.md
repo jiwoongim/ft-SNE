@@ -12,7 +12,6 @@ For more information, see
 @article{Im2018,
     title={Stochastic Neighbour Embedding under f-divergence},
     author={Im, Daniel Jiwoong and Verma, Nakul and Branson, Kristin},
-    journal={http://arxiv.org/abs/1602.05110},
     year={2018}
 }
 ```

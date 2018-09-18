@@ -17,9 +17,6 @@ def parse_args():
     desc = "Pytorch implementation of AAE collections"
     parser = argparse.ArgumentParser(description=desc)
 
-    parser.add_argument('--datatype', type=str, default='mnist', \
-                        choices=['mnist','mnist1','face','news'],
-                        help='The name of dataset')
     parser.add_argument('--dataset_path', type=str, \
                         default='./data/',\
                         help='Dataset directory')

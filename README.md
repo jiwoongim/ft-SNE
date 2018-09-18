@@ -43,7 +43,7 @@ Note that the name of data and labels file must be in NumPy array
 see line 44-45 in run.py for details.
 
 
-#Illustration 
+##Illustration 
 ft-SNE embeddings obtained with interpolated divergences 
 between KL and RKL. The perpleixty for each row corresponds to 10, 100, and 500 respectively:
 

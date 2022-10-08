@@ -169,7 +169,7 @@ def find_Y(X_shared, Y_shared, sigma_shared, N, output_dims, n_epochs,
     norm_gs = abs(grad_Y).sum()
     updates = [(Yv_shared, momentum*Yv - lr*grad_Y)]
     givens = {X: X_shared, sigma: sigma_shared, Y: Y_shared, Yv: Yv_shared}
-    update_Yv = theano.function([lr, momentum], [cost, norm_gs], givens=givens, updates=updates)
+    update_Yv = theano.function([lr, momentum], [cost, norm_gs], givens=givens, updates=updates, allow_input_downcast=True)
     Y_len  = T.mean(T.sum(Y**2, axis=1))
 
     # Setting update for Y

@@ -107,8 +107,8 @@ def tsne(X, perplexity=30, Y=None, output_dims=2, n_epochs=1000,
     np.save(result_path+'/'+datatype+'_probM_seed0_v2_perp'+str(perplexity), pdist)
     np.save(result_path+'/'+datatype+'_data_sorted_v2_seed0_perp'+str(perplexity), sorted_ind_p)
 
-    for i in xrange(1,num_folds):
-        print '%s FOLD %d' % (divtype, i)
+    for i in range(1,num_folds):
+        print('%s FOLD %d' % (divtype, i))
         random_state = check_random_state(i)
 
         Y = random_state.normal(0, init_stdev, size=(N, output_dims))
@@ -210,8 +210,8 @@ def find_Y(X_shared, Y_shared, sigma_shared, N, output_dims, n_epochs,
                     plot_map_c(projX, color, ffname)
 
 
-                print 'Epoch %d, SNE J %f, |GS| %f, |Y| %f, LRY %f, MOM %f' \
-                              % (epoch, c, grad_len, y_len, lrY, mom)
+                print('Epoch %d, SNE J %f, |GS| %f, |Y| %f, LRY %f, MOM %f' \
+                              % (epoch, c, grad_len, y_len, lrY, mom))
 
 
     np.save('./results/'+fname+'_loss', np.asarray(loss))

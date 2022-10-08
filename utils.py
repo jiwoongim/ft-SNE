@@ -11,7 +11,7 @@
  application.  All use of these programs is entirely at the user's own risk.'''
 
 
-import os, sys, cPickle, math, pylab #, PIL
+import os, sys, pickle, math, pylab #, PIL
 import matplotlib as mp
 import matplotlib.pyplot as plt
 
@@ -247,13 +247,13 @@ def save_the_numpy_params(model,size,rank,epoch, model_path):
     tmp  = []
 
     for param in model.gen_network.params:
-        if rank==0: print param.get_value().shape
+        if rank==0: print(param.get_value().shape)
         tmp.append(param.get_value())
 
     np.save(model_path+'/%d%dgen_params_e%d.npy' % (size, rank, epoch),tmp)
 
     # comm.Barrier()
-    print 'saved'
+    print('saved')
     # exit(0)
  
 
@@ -447,7 +447,7 @@ def get_corrupted_input(rng, input, corruption_level, ntype='zeromask'):
     elif ntype=='salt_pepper':
 
         # salt and pepper noise
-        print 'DAE uses salt and pepper noise'
+        print('DAE uses salt and pepper noise')
         a = MRG.binomial(size=input.shape, n=1,\
                 p=1-corruption_level,dtype=theano.config.floatX)
         b = MRG.binomial(size=input.shape, n=1,\
@@ -459,7 +459,7 @@ def get_corrupted_input(rng, input, corruption_level, ntype='zeromask'):
 ''' improving learning rate'''
 def get_epsilon_inc(epsilon, n, i):
     """
-    n: total num of epoch
+    n: total num of epoch:
     i: current epoch num
     """
     return epsilon / ( 1 - i/float(n))
@@ -506,10 +506,10 @@ def gen_train_valid_test(raw_data, raw_target, r_train, r_valid, r_test):
     valid_target = raw_target[n_train:n_train+n_valid]
     test_target  = raw_target[n_train+n_valid: n_train+n_valid+n_test]
     
-    print 'Among ', n_raw, 'raw data, we generated: '
-    print train.shape[0], ' training data'
-    print valid.shape[0], ' validation data'
-    print test.shape[0],  ' test data\n'
+    print('Among ', n_raw, 'raw data, we generated: ')
+    print(train.shape[0], ' training data')
+    print(valid.shape[0], ' validation data')
+    print(test.shape[0],  ' test data\n')
     
     train_set = [train, train_target]
     valid_set = [valid, valid_target]

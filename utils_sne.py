@@ -1,4 +1,4 @@
-import os, sys, gzip, pickle, cPickle
+import os, sys, gzip, pickle
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.cm as cm
@@ -98,8 +98,8 @@ def precision_K(p_sorted_ind, q_sorted_ind, Ks, K=3):
 
     # For each point in x compute the distance of K points in P and Q
     for j,kk in enumerate(Ks):
-        for i in xrange(N):
-            for k in xrange(kk):
+        for i in range(N):
+            for k in range(kk):
                 ind_k = q_sorted_ind[i, k]
                 tmp_k = np.argwhere(ind_k == p_sorted_ind[i,:kk]).flatten()
                 if tmp_k.shape[0] > 0:
@@ -107,7 +107,7 @@ def precision_K(p_sorted_ind, q_sorted_ind, Ks, K=3):
 
     # Count the number of correct indices  
     outputs = []
-    for jj in  xrange(len(Ks)):
+    for jj in  range(len(Ks)):
         outputs += [[np.mean(accuracy[:,jj]), np.std(accuracy[:,jj])]]
 
     return outputs
@@ -124,7 +124,7 @@ def K_neighbours(data, maxK=10, revF=False, sigma=None):
     N, _ = dists.shape
     sorted_ind_p = np.zeros((N,maxK), dtype='int32')
 
-    for i in xrange(N):sorted_ind_p[i,:] = np.argsort(dists[i,:])[1:maxK+1]
+    for i in range(N):sorted_ind_p[i,:] = np.argsort(dists[i,:])[1:maxK+1]
     if revF: sorted_ind_p  = sorted_ind_p[:,::-1]
 
     return sorted_ind_p, dists
@@ -137,7 +137,7 @@ def neighbour_accuracy_K(data, labels, Ks, maxK=10):
     N, _ = data.shape
 
     fractions = []
-    for i in xrange(N):
+    for i in range(N):
 
         #ind_sort = np.argsort(dists[i,:])[1:maxK+1]
         ind_sort = data[i,:]

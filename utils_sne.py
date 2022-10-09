@@ -1,7 +1,5 @@
-import os, sys, gzip, pickle
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 
 import numpy as np
@@ -19,8 +17,6 @@ def plot_map_news(xx, colors, color_dict, fname):
     ax = plt.subplot(111)
 
     area = np.pi * 4 #* (15 * np.random.rand(N))**2  # 0 to 15 point radii
-    #jfor i, x  in enumerate(xx):
-    #j    plt.scatter(xx[i,0], xx[i,1], s=area, c=colors[i], alpha=0.5, cmap=plt.cm.Spectral)
 
     for i, x  in enumerate(xx):
         plt.scatter(x[0], x[1], s=area, c=color_dict[colors[i]], alpha=0.7, facecolor='0.8', lw = 0)
@@ -39,8 +35,6 @@ def plot_map_c(xx, colors, fname):
     ax = plt.subplot(111)
 
     area = np.pi * 4 #* (15 * np.random.rand(N))**2  # 0 to 15 point radii
-    #jfor i, x  in enumerate(xx):
-    #j    plt.scatter(xx[i,0], xx[i,1], s=area, c=colors[i], alpha=0.5, cmap=plt.cm.Spectral)
     plt.scatter(xx[:,0], xx[:,1], s=area, c=colors, alpha=1.0, cmap=plt.cm.Spectral, \
                     facecolor='0.5', lw = 0)
 
@@ -58,9 +52,6 @@ def plot1D(xx, colors, fname):
     ax = plt.subplot(111)
 
     area = np.pi * 5 #* (15 * np.random.rand(N))**2  # 0 to 15 point radii
-    #jfor i, x  in enumerate(xx):
-    #j    plt.scatter(xx[i,0], xx[i,1], s=area, c=colors[i], alpha=0.5, cmap=plt.cm.Spectral)
-    #plt.plot(xx, c=colorVal, alpha=0.9, lw = 0)
     dummy = np.zeros_like(xx)
     plt.scatter(xx, dummy, s=area, c=colors, alpha=0.9, cmap=plt.cm.Spectral, facecolor='0.5', lw = 0)
 
@@ -116,7 +107,6 @@ def precision_K(p_sorted_ind, q_sorted_ind, Ks, K=3):
 def K_neighbours(data, maxK=10, revF=False, sigma=None):
 
     from utils import dist2hy_np
-    #dists = dist2hy_np(data, data)
     if sigma is not None:
         dists = p_Xp_given_X_np(data, sigma, 'euclidean')
     else:
@@ -132,14 +122,11 @@ def K_neighbours(data, maxK=10, revF=False, sigma=None):
 
 def neighbour_accuracy_K(data, labels, Ks, maxK=10):
 
-    #from utils import dist2hy_np
-    #dists = dist2hy_np(data, data)
     N, _ = data.shape
 
     fractions = []
     for i in range(N):
 
-        #ind_sort = np.argsort(dists[i,:])[1:maxK+1]
         ind_sort = data[i,:]
         label           = labels[i]
         neighbor_labels = labels[ind_sort]
@@ -168,5 +155,3 @@ def get_iris_data():
         label.append(line[-1])
 
     return np.asarray(data), np.asarrya(label)
-
-

@@ -1,14 +1,9 @@
-import os, sys, gzip, pickle, cPickle, argparse
+import argparse
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
 
 import numpy as np
 from tsne import tsne
-
-from utils import unpickle, plot_map
-from utils_sne import precision_K, K_neighbours
 
 from sklearn.decomposition import PCA
 RNG = np.random.RandomState(0)
@@ -50,21 +45,21 @@ if __name__ == '__main__':
     data = data [perm][:6000]
     color= label[perm][:6000]
     initial_momentum=0.5
-    n_epochs_tsne=2000; 
+    n_epochs_tsne=2000
     if divtypet=='hl':
         initial_lr_tsne=300
         momentum_switch=200
         lrDecay=100
     elif divtypet=='ch':
-        initial_lr_tsne=10;
+        initial_lr_tsne=10
         momentum_switch=200
         lrDecay=100
     elif divtypet=='rkl':
-        initial_lr_tsne=1000; 
+        initial_lr_tsne=1000
         momentum_switch=200
         lrDecay=100
     elif divtypet=='js':
-        initial_lr_tsne=1000;
+        initial_lr_tsne=1000
         momentum_switch=200
         lrDecay=100
     else:
@@ -72,7 +67,7 @@ if __name__ == '__main__':
         momentum_switch=200
         lrDecay=100
 
-    print 'Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne)
+    print('Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne))
     fname = '/'+datatype+'/'+divtypet+'/tsne_'+str(perplexity_tsne)+'perp'+str(n_epochs_tsne)+'epoch_initlr'+str(initial_lr_tsne)+pcastr
     projX = tsne(data, 
                  initial_lr=initial_lr_tsne, \
@@ -86,6 +81,3 @@ if __name__ == '__main__':
 
     print(fname)
     pass
-
-
-

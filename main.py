@@ -1,14 +1,9 @@
-import os, sys, gzip, pickle, argparse
+import gzip, pickle, argparse
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
 
 import numpy as np
 from tsne import tsne
-
-from utils import unpickle, plot_map
-from utils_sne import precision_K, K_neighbours
 
 import theano
 theano.config.gcc.cxxflags = "-Wno-c++11-narrowing"

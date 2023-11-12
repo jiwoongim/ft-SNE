@@ -1,14 +1,12 @@
-import os, sys, gzip, pickle, cPickle, argparse
+import gzip, pickle, argparse
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.cm as cm
-import matplotlib.pyplot as plt
 
 import numpy as np
 from tsne import tsne
 
-from utils import unpickle, plot_map
-from utils_sne import precision_K, K_neighbours
+import theano
+theano.config.gcc.cxxflags = "-Wno-c++11-narrowing"
 
 from sklearn.decomposition import PCA
 RNG = np.random.RandomState(0)
@@ -43,7 +41,7 @@ if __name__ == '__main__':
     if args.datatype == 'mnist':
         dataset_path = dataset_path + '/mnist.pkl.gz'
         f = gzip.open(dataset_path, 'rb')
-        train_set_np, valid_set_np, test_set_np = cPickle.load(f)
+        train_set_np, valid_set_np, test_set_np = pickle.load(f, encoding='latin1')
 
         ind0 = np.argwhere(train_set_np[1] == 0).flatten()
         ind1 = np.argwhere(train_set_np[1] == 1).flatten()
@@ -87,7 +85,7 @@ if __name__ == '__main__':
     elif args.datatype == 'mnist1':
         dataset_path = dataset_path + '/MNIST/mnist.pkl.gz'
         f = gzip.open(dataset_path, 'rb')
-        train_set_np, valid_set_np, test_set_np = cPickle.load(f)
+        train_set_np, valid_set_np, test_set_np = pickle.load(f)
 
         ind = np.argwhere(train_set_np[1] == 1).flatten()
 
@@ -203,7 +201,7 @@ if __name__ == '__main__':
             lrDecay=100
 
 
-    print 'Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne)
+    print('Divtype %s, Perplexity %d' % (divtypet, perplexity_tsne))
     fname = args.datatype+'/'+divtypet+'/tsne_'+str(perplexity_tsne)+'perp'+str(n_epochs_tsne)+'epoch_initlr'+str(initial_lr_tsne)+pcastr
     projX = tsne(data, 
                  initial_lr=initial_lr_tsne, \

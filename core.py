@@ -3,12 +3,9 @@ Code taken from https://raw.githubusercontent.com/hma02/thesne/master/model/tsne
 And then modified.
 """
 
-import os, sys
 import theano.tensor as T
 import theano
 import numpy as np
-
-from utils import dist2hy
 
 import theano.sandbox.rng_mrg as RNG_MRG
 import theano.tensor.shared_randomstreams  as RNG_TRG

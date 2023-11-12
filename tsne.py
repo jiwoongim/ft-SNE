@@ -2,7 +2,7 @@
 Code taken from https://github.com/hma02/thesne/blob/master/model/tsne.py
 And then modified.
 """
-import os, sys
+import os
 import numpy as np
 import theano
 import theano.tensor as T
@@ -11,17 +11,17 @@ from sklearn.utils import check_random_state
 
 from core import    kl_cost_var, reverse_kl_cost_var, js_cost_var, \
                     hellinger_cost_var, chi_square_cost_var, \
-                    p_Yp_Y_var_np, floath, find_sigma
+                    floath, find_sigma
 
 from utils import get_epsilon
-from utils_sne import precision_K, K_neighbours, neighbour_accuracy_K, plot_map_c, plot_map_news
+from utils_sne import K_neighbours, plot_map_c, plot_map_news
 
 
 def tsne(X, perplexity=30, Y=None, output_dims=2, n_epochs=1000,
          initial_lr=1000, final_lr=50, lr_switch=250, init_stdev=1e-3,
          sigma_iters=50, initial_momentum=0.95, final_momentum=0.0, lrDecay=100,\
-         momentum_switch=250, metric='euclidean', random_state=None,
-         verbose=1, fname=None, color=None, divtype='kl', num_folds=2, datatype='mnist'):
+         momentum_switch=250, metric='euclidean', divtype='kl', random_state=None,
+         verbose=0, fname=None, color=None, num_folds=2, datatype='mnist'):
     """Compute projection from a matrix of observations (or distances) using 
     t-SNE.
     
@@ -75,11 +75,13 @@ def tsne(X, perplexity=30, Y=None, output_dims=2, n_epochs=1000,
         Indicates whether `X` is composed of observations ('euclidean') 
         or distances ('precomputed').
     
+    divtype: divergence type ('kl', 'hl', 'fr', 'rkl', 'js', 'ch')
+    
     random_state : int or np.RandomState, optional (default = None)
         Integer seed or np.RandomState object used to initialize the
         position of each point. Defaults to a random seed.
 
-    verbose : bool (default = 1)
+    verbose : bool (default = 0)
         Indicates whether progress information should be sent to standard 
         output.
         
@@ -107,8 +109,8 @@ def tsne(X, perplexity=30, Y=None, output_dims=2, n_epochs=1000,
     np.save(result_path+'/'+datatype+'_probM_seed0_v2_perp'+str(perplexity), pdist)
     np.save(result_path+'/'+datatype+'_data_sorted_v2_seed0_perp'+str(perplexity), sorted_ind_p)
 
-    for i in xrange(1,num_folds):
-        print '%s FOLD %d' % (divtype, i)
+    for i in range(1,num_folds):
+        print('%s FOLD %d' % (divtype, i))
         random_state = check_random_state(i)
 
         Y = random_state.normal(0, init_stdev, size=(N, output_dims))
@@ -169,7 +171,7 @@ def find_Y(X_shared, Y_shared, sigma_shared, N, output_dims, n_epochs,
     norm_gs = abs(grad_Y).sum()
     updates = [(Yv_shared, momentum*Yv - lr*grad_Y)]
     givens = {X: X_shared, sigma: sigma_shared, Y: Y_shared, Yv: Yv_shared}
-    update_Yv = theano.function([lr, momentum], [cost, norm_gs], givens=givens, updates=updates)
+    update_Yv = theano.function([lr, momentum], [cost, norm_gs], givens=givens, updates=updates, allow_input_downcast=True)
     Y_len  = T.mean(T.sum(Y**2, axis=1))
 
     # Setting update for Y
@@ -210,14 +212,11 @@ def find_Y(X_shared, Y_shared, sigma_shared, N, output_dims, n_epochs,
                     plot_map_c(projX, color, ffname)
 
 
-                print 'Epoch %d, SNE J %f, |GS| %f, |Y| %f, LRY %f, MOM %f' \
-                              % (epoch, c, grad_len, y_len, lrY, mom)
+                print('Epoch %d, SNE J %f, |GS| %f, |Y| %f, LRY %f, MOM %f' \
+                              % (epoch, c, grad_len, y_len, lrY, mom))
 
 
     np.save('./results/'+fname+'_loss', np.asarray(loss))
     np.save('./results/'+fname+'_gnorm', np.asarray(gnorms))
 
     return np.array(Y_shared.get_value())
-
-
-

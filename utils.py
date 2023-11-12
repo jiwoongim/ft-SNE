@@ -11,7 +11,7 @@
  application.  All use of these programs is entirely at the user's own risk.'''
 
 
-import os, sys, cPickle, math, pylab #, PIL
+import math #, PIL
 import matplotlib as mp
 import matplotlib.pyplot as plt
 
@@ -49,7 +49,7 @@ def plot_map(xx, fname):
 def divide_by_labels(xx, yy, num_class=10):
 
     xx_list = []
-    for i in xrange(num_class):
+    for i in range(num_class):
 
         indice = np.argwhere(yy==i).flatten()
         xx_list.append(xx[indice])
@@ -75,7 +75,7 @@ def uncompress_sparseMatrix(matrice):
 
     data = []; labels = []
     n = matrice.shape[0]
-    for i in xrange(n):
+    for i in range(n):
         data.append(matrice[i][0].todense())
         labels.append(np.ones(matrice[i][0].shape[0]) * i)
     data = np.vstack(data).astype('float32')
@@ -123,7 +123,7 @@ def initialize_weight(n_vis, n_hid, W_name, numpy_rng, rng_dist):
         N_ = int(n_vis / float(n_hid))
         sz = np.minimum(n_vis, n_hid)
         W = np.zeros((n_vis, n_hid), dtype=theano.config.floatX)
-        for i in xrange(N_):
+        for i in range(N_):
             temp = 0.01 * numpy_rng.normal(size=(sz, sz)).astype(theano.config.floatX)
             W[:, i*sz:(i+1)*sz] = sp.linalg.orth(temp)
 
@@ -247,13 +247,13 @@ def save_the_numpy_params(model,size,rank,epoch, model_path):
     tmp  = []
 
     for param in model.gen_network.params:
-        if rank==0: print param.get_value().shape
+        if rank==0: print(param.get_value().shape)
         tmp.append(param.get_value())
 
     np.save(model_path+'/%d%dgen_params_e%d.npy' % (size, rank, epoch),tmp)
 
     # comm.Barrier()
-    print 'saved'
+    print('saved')
     # exit(0)
  
 
@@ -365,7 +365,7 @@ being plotted to [0,1] or not
         else:
             channel_defaults = [0., 0., 0., 1.]
 
-        for i in xrange(4):
+        for i in range(4):
             if X[i] is None:
                 # if channel is None, fill it with zeros of the correct
                 # dtype
@@ -393,28 +393,20 @@ being plotted to [0,1] or not
             dt = 'uint8'
         out_array = np.zeros(out_shape, dtype=dt)
 
-        for tile_row in xrange(tile_shape[0]):
-            for tile_col in xrange(tile_shape[1]):
-		#print tile_row, tile_shape[1], tile_col, X.shape[0]
-		#print tile_row * tile_shape[1] + tile_col < X.shape[0]
+        for tile_row in range(tile_shape[0]):
+            for tile_col in range(tile_shape[1]):
                 if tile_row * tile_shape[1] + tile_col < X.shape[0]:
                     this_x = X[tile_row * tile_shape[1] + tile_col]
-		    #print this_x
-		    #print scale_rows_to_unit_interval
                     if scale_rows_to_unit_interval:
                         # if we should scale values to be between 0 and 1
                         # do this by calling the `scale_to_unit_interval`
                         # function
                         this_img = scale_to_unit_interval(
                             this_x.reshape(img_shape))
-			#print this_x.shape
-			#print this_img
                     else:
                         this_img = this_x.reshape(img_shape)
                     # add the slice to the corresponding position in the
                     # output array
-			#print this_x.shape
-			#print this_img
 
                     c = 1
                     if output_pixel_vals:
@@ -447,7 +439,7 @@ def get_corrupted_input(rng, input, corruption_level, ntype='zeromask'):
     elif ntype=='salt_pepper':
 
         # salt and pepper noise
-        print 'DAE uses salt and pepper noise'
+        print('DAE uses salt and pepper noise')
         a = MRG.binomial(size=input.shape, n=1,\
                 p=1-corruption_level,dtype=theano.config.floatX)
         b = MRG.binomial(size=input.shape, n=1,\
@@ -459,7 +451,7 @@ def get_corrupted_input(rng, input, corruption_level, ntype='zeromask'):
 ''' improving learning rate'''
 def get_epsilon_inc(epsilon, n, i):
     """
-    n: total num of epoch
+    n: total num of epoch:
     i: current epoch num
     """
     return epsilon / ( 1 - i/float(n))
@@ -506,10 +498,10 @@ def gen_train_valid_test(raw_data, raw_target, r_train, r_valid, r_test):
     valid_target = raw_target[n_train:n_train+n_valid]
     test_target  = raw_target[n_train+n_valid: n_train+n_valid+n_test]
     
-    print 'Among ', n_raw, 'raw data, we generated: '
-    print train.shape[0], ' training data'
-    print valid.shape[0], ' validation data'
-    print test.shape[0],  ' test data\n'
+    print('Among ', n_raw, 'raw data, we generated: ')
+    print(train.shape[0], ' training data')
+    print(valid.shape[0], ' validation data')
+    print(test.shape[0],  ' test data\n')
     
     train_set = [train, train_target]
     valid_set = [valid, valid_target]
@@ -559,21 +551,16 @@ def save_the_env(dir_to_save, path):
         for extension in ('*.py', '*.sh'):
             for filename in fnmatch.filter(filenames, extension):
                 matches.append(os.path.join(root, filename))
-    
-    # print matches
-    
-    # print 'creating archive'
+        
     import tarfile
     out = tarfile.open('env.tar', mode='w')
     
     try:
-        # print 'adding files into tar'
         for f in matches:
             out.add(f)
     except Exception as e:
         raise e
 
-    # print 'closing'
     out.close()
    
     import shutil
